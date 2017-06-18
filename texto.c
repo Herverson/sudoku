@@ -10,7 +10,7 @@ int main(void) {
   int matriz[9][9];
   FILE *fp;
 
-  fp = fopen("9.txt","r");
+  fp = fopen("sudoku.txt","r");
   if(fp == NULL)
   {
     printf("Não foi possivel abrir arquivo\n");
@@ -68,11 +68,11 @@ int main(void) {
 
     }
     if (c == '\n')
-        c1++;	
+        c1++;
     if (i == 81)
-        break; 
-   
-	
+        break;
+
+
 }
   fclose(fp);
 
