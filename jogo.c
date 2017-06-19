@@ -1,6 +1,6 @@
 #include "sudoku.h"
 
-int sudoku[9][9] = {0,0,0, 0,0,0, 0,1,0,
+int sudoku[9][9]; /*= {0,0,0, 0,0,0, 0,1,0,
                     4,0,0, 0,0,0, 0,0,0,
                     0,2,0, 0,0,0, 0,0,0,
 
@@ -10,7 +10,91 @@ int sudoku[9][9] = {0,0,0, 0,0,0, 0,1,0,
 
                     3,0,0, 4,0,0, 2,0,0,
                     0,5,0, 1,0,0, 0,0,0,
-                    0,0,0, 8,0,6, 0,0,0};
+                    0,0,0, 8,0,6, 0,0,0};*/
+// funcao
+void geraMatriz()
+{
+
+  int c;
+  int n = 0;
+  int i,j;
+  int vetor[81];
+  FILE *fp;
+
+  fp = fopen("sudoku.txt","r");
+  if(fp == NULL)
+  {
+    printf("Não foi possivel abrir arquivo\n");
+    return;
+  }
+  srand( (unsigned)time(NULL) );
+  int x = (rand()%50);
+  printf("%d\n", x);
+  i = 0;
+  int c1 = 0;
+  while ((c = fgetc(fp)) != EOF)
+  {
+    if (c1 == x)
+    {
+      do
+      {
+          switch (c)
+          {
+            case 48:
+                  vetor[i] = 0;
+            break;
+            case 49:
+                  vetor[i] = 1;
+            break;
+            case 50:
+                  vetor[i] = 2;
+            break;
+            case 51:
+                  vetor[i] = 3;
+            break;
+            case 52:
+                  vetor[i] = 4;
+            break;
+            case 53:
+                  vetor[i] = 5;
+            break;
+            case 54:
+                  vetor[i] = 6;
+            break;
+            case 55:
+                  vetor[i] = 7;
+            break;
+            case 56:
+                  vetor[i] = 8;
+            break;
+            case 57:
+                  vetor[i] = 9;
+            break;
+          }
+        i++;
+        c = fgetc(fp);
+      }while (c != '\n');
+
+    }
+    if (c == '\n')
+        c1++;
+    if (i == 81)
+        break;
+
+
+}
+  fclose(fp);
+
+  int k = 0;
+  for (i = 0; i < 9; i++)
+  {
+    for (j = 0; j < 9; j++)
+    {
+      sudoku[i][j] = vetor[k];
+      k++;
+    }
+  }
+}
 
 /* funcao imprime o Sudoku*/
 void printSudoku()
