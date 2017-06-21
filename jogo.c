@@ -1,5 +1,6 @@
 #include "sudoku.h"
-
+#define FALSE 0
+#define TRUE 1
 int sudoku[9][9]; /*= {0,0,0, 0,0,0, 0,1,0,
                     4,0,0, 0,0,0, 0,0,0,
                     0,2,0, 0,0,0, 0,0,0,
@@ -11,7 +12,77 @@ int sudoku[9][9]; /*= {0,0,0, 0,0,0, 0,1,0,
                     3,0,0, 4,0,0, 2,0,0,
                     0,5,0, 1,0,0, 0,0,0,
                     0,0,0, 8,0,6, 0,0,0};*/
-// funcao
+int sudoku2[9][9];
+// funcao para iniciar o jogo
+void jogarSudoku()
+{
+  int n = 0, n2 = 0, num = 1, i, j, cont = 0, k = 0;
+  int p1[81], p2[81];
+  int total = 0;
+  for (i = 0; i < 9; i++)
+  {
+    for (j = 0; j < 9; j++)
+    {
+      if (sudoku2[i][j] != 0)
+      {
+        p1[k] = i;
+        p2[k] = j;
+        k++;
+      }
+    }
+
+  }
+  // loop para receber as coordenadas
+  while (TRUE)
+  {
+    printf("Informe as coordenadas\n");
+    scanf("%d", &n);
+    scanf("%d", &n2);
+    // saber se ja existe na posição incial
+    if (n >= 1  && n <= 9 && n2 >= 1  && n2 <= 9)
+    {
+      cont = 0;
+      for (i = 0; i < k ; i++)
+      {
+        if (n-1 == p1[i] && n2-1 == p2[i])
+          cont = 1;
+      }
+
+      // caso não esteja
+      if (cont != 1)
+      {
+        printf("Informe o número\n");
+        scanf("%d", &num);
+        if (num >= 1 && num <=9)
+          sudoku2[n-1][n2-1] = num;
+        else
+          printf("Número inválido\n");
+      }
+      else
+      {
+        printf("Célula do Sudoku\n");
+      }
+
+    }
+    else if (n == 0 && n2 == 0)
+    {
+        break;
+    }
+    else
+    {
+      printf("Coordenada inválida\n");
+    }
+
+    // chama a funcao para imprimir a matriz alterada ou não
+    printSudoku2();
+  }
+  if (n == 0 && n2 == 0);
+  {
+    verificaSudoku();
+  }
+
+}
+// preenche o sudoku do arquivo sudoku.txt
 void geraMatriz()
 {
 
@@ -27,9 +98,9 @@ void geraMatriz()
     printf("Não foi possivel abrir arquivo\n");
     return;
   }
-  srand( (unsigned)time(NULL) );
-  int x = (rand()%50);
-  printf("%d\n", x);
+  //srand( (unsigned)time(NULL) );
+  int x = 49151;//(rand()%50);
+  //printf("%d\n", x);
   i = 0;
   int c1 = 0;
   while ((c = fgetc(fp)) != EOF)
@@ -95,7 +166,18 @@ void geraMatriz()
     }
   }
 }
-
+// funcao para preencher a matriz do usuario
+void geraMatrizUsuario()
+{
+  int i, j;
+  for (i = 0; i < 9; i++)
+  {
+    for (j = 0; j < 9; j++)
+    {
+      sudoku2[i][j] = sudoku[i][j];
+    }
+  }
+}
 /* funcao imprime o Sudoku*/
 void printSudoku()
 {
@@ -104,8 +186,8 @@ void printSudoku()
 
 	for (i = 0; i< 9; i++)
   {
-		//printf("\n");
-		for (j = 0; j < 9; j++){
+		for (j = 0; j < 9; j++)
+    {
 			if (j == 3 || j == 6)
 				printf(" ");
 			if (i == 0 || i == 3 || i == 6)
@@ -144,6 +226,71 @@ void printSudoku()
 			printf("\n");
 	}
 printf("\n");
+}
+
+void printSudoku2()
+{
+  int i, j;
+  //system("clear");
+
+	for (i = 0; i< 9; i++)
+  {
+		//printf("\n");
+		for (j = 0; j < 9; j++){
+			if (j == 3 || j == 6)
+				printf(" ");
+			if (i == 0 || i == 3 || i == 6)
+      {
+				if (j == 0)
+					printf(" _____  ");
+				else
+					printf("_____  ");
+			}
+		}
+		printf("\n");
+		for (j = 0; j < 9; j++)
+    {
+			if (j == 3 || j == 6)
+				printf(" ");
+			printf("|     |");
+		}
+		printf("\n");
+    for (j = 0; j < 9; j++)
+    {
+			if (j == 3 || j == 6)
+				printf(" ");
+			if (sudoku2[i][j] == 0)
+				printf("|     |");
+			else
+				printf("|  %i  |",sudoku2[i][j]);
+		}
+		printf("\n");
+		for (j = 0; j< 9; j++)
+    {
+			if (j == 3 || j == 6)
+			printf(" ");
+			printf("|_____|");
+		}
+		if (i == 2 || i == 5)
+			printf("\n");
+	}
+printf("\n");
+}
+
+void verificaSudoku()
+{
+  int acertouMiserave = TRUE;
+  int i, j;
+
+  for (i = 0; i < 9; i++)
+    for (j = 0; j < 9; j++)
+      if(sudoku[i][j] != sudoku2[i][j])
+        acertouMiserave = FALSE;
+
+  if (acertouMiserave)
+    printf("Acertou Miserave\n");
+  else
+    printf("Errou Miserave\n");
 }
 
 // funcao para solucionar o sudoku
