@@ -99,34 +99,51 @@ void geraMatriz()
 /* funcao imprime o Sudoku*/
 void printSudoku()
 {
-  printf("______________________________________\n");
-  for (int i = 0 ; i < 9; i++)
-  {
-    for (int j = 0; j < 9; j++)
-    {
-        if(j == 8 && i == 8 )
-          {
-              printf(" %d ", sudoku[i][j]);
-              printf("|");
-          }
-          else
-          {
-               printf(" %d ", sudoku[i][j]);
-               printf("|");
-          }
+  int i, j;
+  //system("clear");
 
-           if (((j + 1) % 3) == 0 && j < 8)
-           {
-              printf("|");
-           }
-    }
-    printf("\n");
-       if (((i + 1) % 3) == 0)
-       {
-           printf("---------------------------------------\n");
-       }
-  }
-  printf("\n\n");
+	for (i = 0; i< 9; i++)
+  {
+		//printf("\n");
+		for (j = 0; j < 9; j++){
+			if (j == 3 || j == 6)
+				printf(" ");
+			if (i == 0 || i == 3 || i == 6)
+      {
+				if (j == 0)
+					printf(" _____  ");
+				else
+					printf("_____  ");
+			}
+		}
+		printf("\n");
+		for (j = 0; j < 9; j++)
+    {
+			if (j == 3 || j == 6)
+				printf(" ");
+			printf("|     |");
+		}
+		printf("\n");
+    for (j = 0; j < 9; j++)
+    {
+			if (j == 3 || j == 6)
+				printf(" ");
+			if (sudoku[i][j] == 0)
+				printf("|     |");
+			else
+				printf("|  %i  |",sudoku[i][j]);
+		}
+		printf("\n");
+		for (j = 0; j< 9; j++)
+    {
+			if (j == 3 || j == 6)
+			printf(" ");
+			printf("|_____|");
+		}
+		if (i == 2 || i == 5)
+			printf("\n");
+	}
+printf("\n");
 }
 
 // funcao para solucionar o sudoku
