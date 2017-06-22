@@ -39,7 +39,7 @@ void jogarSudoku()
     scanf("%d", &n);
     scanf("%d", &n2);
     // saber se ja existe na posição incial
-    if (n >= 1  && n <= 9 && n2 >= 1  && n2 <= 9)
+    if (n >= 1  && n <= 9 && n2 >= 1 && n2 <= 9)
     {
       cont = 0;
       for (i = 0; i < k ; i++)
@@ -342,7 +342,7 @@ int soluSudoku(int x, int y)
         {
           return 1;
         }
-        // caso a linha tenha terminado
+        // caso a linha não tenha terminado
         if (x < 8)
         {
           //incrementa para proxima linha
