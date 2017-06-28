@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#define FALSE 0
+#define TRUE 1
 
 int soluSudoku(int, int);
-void geraMatriz();
-void printSudoku();
+void menu();
+void geraMatriz(int);
 void printSudoku2();
 void jogarSudoku();
 void geraMatrizUsuario();
