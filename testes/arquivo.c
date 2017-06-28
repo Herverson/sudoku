@@ -2,38 +2,54 @@
 #include <stdlib.h>
 int main(int argc, char const *argv[]) {
   FILE *fp;
-  int vetor[6], i, j, pt = 4, aux;
+  int i, j, pt = 3, aux, n;
   // abrir arquivo
-  vetor[5] = pt;
   fp = fopen("top5.txt","rt");
   if(fp == NULL)
   {
-    printf("Não foi possivel abrir arquivo\n");
+    fp = fopen("top5.txt","w");
+    fprintf(fp, "%d\n", pt);
     return 0;
   }
-  // ler os dados e colocar na  matriz
-  for (i = 0; i < 5; i++)
+  else
   {
-    fscanf(fp, "%d", &vetor[i]);
-  }
-  // ordenar o TOP5
-  for (i = 0; i < 6; i++)
-  {
-    for (j = i + 1; j < 6; j++)
+    int vetor[6] = {0};
+    i = 0;
+    while (fscanf(fp, "%d", &vetor[i]) != EOF)
     {
-      if (vetor[i] > vetor[j])
+      printf("%d\n", vetor[i]);
+        i++;
+    }
+    printf("teste\n");
+    vetor[i+1] = pt;
+
+    n = i + 1;
+    // ordenar o TOP5
+    for (i = 0; i <= n; i++)
+    {
+      for (j = i + 1; j <= n; j++)
       {
-          aux = vetor[j];
-          vetor[j] = vetor[i];
-          vetor[i] = aux;
+        if (vetor[i] > vetor[j])
+        {
+            aux = vetor[j];
+            vetor[j] = vetor[i];
+            vetor[i] = aux;
+        }
       }
     }
+    // imprime
+    for (i = 0; i <= n; i++)
+    {
+        printf("%d\n", vetor[i]);
+    }
+    // modo escrita
+    fp = fopen("top5.txt","w");
+    for (i = 0; i < 6; i++)
+    {
+        if (vetor[i] != 0)
+            fprintf(fp, "%d\n", vetor[i]);
+    }
   }
-  // modo escrita
-  fp = fopen("top5.txt","w");
-  for (i = 0; i < 5; i++)
-  {
-    fprintf(fp, "%d\n", vetor[i]);
-  }
+  fclose(fp);
   return 0;
 }
