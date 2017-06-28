@@ -1,10 +1,61 @@
 #include "sudoku.h"
-#define FALSE 0
-#define TRUE 1
-
 
 int sudoku[9][9];
 int sudoku2[9][9];
+// funcao menu
+
+void menu()
+{
+  int num;
+  //do
+  //{
+      system("clear");
+      printf("\033[34m");
+      puts("\t\t\t\t┏━━━┳┓╋┏┳━━━┳━━━┳┓┏━┳┓╋┏┓");
+      puts("\t\t\t\t┃┏━┓┃┃╋┃┣┓┏┓┃┏━┓┃┃┃┏┫┃╋┃┃");
+      puts("\t\t\t\t┃┗━━┫┃╋┃┃┃┃┃┃┃╋┃┃┗┛┛┃┃╋┃┃");
+      puts("\t\t\t\t┗━━┓┃┃╋┃┃┃┃┃┃┃╋┃┃┏┓┃┃┃╋┃┃");
+      puts("\t\t\t\t┃┗━┛┃┗━┛┣┛┗┛┃┗━┛┃┃┃┗┫┗━┛┃");
+      puts("\t\t\t\t┗━━━┻━━━┻━━━┻━━━┻┛┗━┻━━━┛");
+      printf("\n");
+      puts("\t\t\t  ╭━━╮╭━━━┳━╮╭━╮╱╭╮╱╱╭┳━━┳━╮╱╭┳━━━┳━━━╮");
+      puts("\t\t\t  ┃╭╮┃┃╭━━┫┃╰╯┃┃╱┃╰╮╭╯┣┫┣┫┃╰╮┃┣╮╭╮┃╭━╮┃");
+      puts("\t\t\t  ┃╰╯╰┫╰━━┫╭╮╭╮┃╱╰╮┃┃╭╯┃┃┃╭╮╰╯┃┃┃┃┃┃╱┃┃");
+      puts("\t\t\t  ┃╭━╮┃╭━━┫┃┃┃┃┣━━┫╰╯┃╱┃┃┃┃╰╮┃┃┃┃┃┃┃╱┃┃");
+      puts("\t\t\t  ┃╰━╯┃╰━━┫┃┃┃┃┣━━┻╮╭╯╭┫┣┫┃╱┃┃┣╯╰╯┃╰━╯┃");
+      puts("\t\t\t  ╰━━━┻━━━┻╯╰╯╰╯╱╱╱╰╯╱╰━━┻╯╱╰━┻━━━┻━━━╯");
+      puts("\t\t\t\t  【M】【E】【N】【U】");
+      puts("");
+      puts("\t\t\t\t    1 -【Fácil】");
+      puts("\t\t\t\t    2 -【Médio】");
+      puts("\t\t\t\t    3 -【Dificil】");
+      puts("\t\t\t\t    4 -【Extras】");
+      puts("\t\t\t\t    5 -【Sair】");
+      scanf("%d", &num);
+      switch (num)
+      {
+        case 1:
+              geraMatriz(1);
+              break;
+        case 2:
+              geraMatriz(2);
+              break;
+        case 3:
+              geraMatriz(3);
+              break;
+        case 4:
+              geraMatriz(4);
+              break;
+        case 5:
+              system("clear");
+              exit(1);
+              break;
+        default:
+              menu();
+      }
+
+  //} while(num != 5);
+}
 
 // funcao para iniciar o jogo
 void jogarSudoku()
@@ -54,6 +105,7 @@ void jogarSudoku()
       else
       {
         printf("Célula do Sudoku\n");
+        system("read b");
       }
 
     }
@@ -76,26 +128,45 @@ void jogarSudoku()
 
 }
 // preenche o sudoku do arquivo sudoku.txt
-void geraMatriz()
+void geraMatriz(int n)
 {
 
-  int c;
-  int n = 0;
-  int i,j;
+  int c, c1, x, k = 0, i, j;
   int vetor[81];
   FILE *fp;
-
-  fp = fopen("sudoku.txt","r");
-  if(fp == NULL)
+  switch (n)
   {
-    printf("Não foi possivel abrir arquivo\n");
-    return;
+    case 1:
+          fp = fopen("facil.txt","r");
+          if(fp == NULL)
+          {
+            printf("Não foi possivel abrir arquivo\n");
+            return;
+          }
+          break;
+    case 2:
+          fp = fopen("medio.txt","r");
+          if(fp == NULL)
+          {
+            printf("Não foi possivel abrir arquivo\n");
+            return;
+          }
+          break;
+    case 3:
+          fp = fopen("dificil.txt","r");
+          if(fp == NULL)
+          {
+            printf("Não foi possivel abrir arquivo\n");
+            return;
+          }
+          break;
   }
+
   //srand( (unsigned)time(NULL) );
-  int x = 49151;//(rand()%50);
+  x = 0;//(rand()%50);
   //printf("%d\n", x);
   i = 0;
-  int c1 = 0;
+  c1 = 0;
   while ((c = fgetc(fp)) != EOF)
   {
     if (c1 == x)
@@ -148,8 +219,7 @@ void geraMatriz()
 
 }
   fclose(fp);
-
-  int k = 0;
+  // passa os valores do arquivo para a matriz
   for (i = 0; i < 9; i++)
   {
     for (j = 0; j < 9; j++)
@@ -171,65 +241,18 @@ void geraMatrizUsuario()
     }
   }
 }
-/* funcao imprime o Sudoku*/
-void printSudoku()
-{
-  int i, j;
-  //system("clear");
-
-	for (i = 0; i< 9; i++)
-  {
-		for (j = 0; j < 9; j++)
-    {
-			if (j == 3 || j == 6)
-				printf(" ");
-			if (i == 0 || i == 3 || i == 6)
-      {
-				if (j == 0)
-					printf(" _____  ");
-				else
-					printf("_____  ");
-			}
-		}
-		printf("\n");
-		for (j = 0; j < 9; j++)
-    {
-			if (j == 3 || j == 6)
-				printf(" ");
-			printf("|     |");
-		}
-		printf("\n");
-    for (j = 0; j < 9; j++)
-    {
-			if (j == 3 || j == 6)
-				printf(" ");
-			if (sudoku[i][j] == 0)
-				printf("|     |");
-			else
-				printf("|  %i  |",sudoku[i][j]);
-		}
-		printf("\n");
-		for (j = 0; j< 9; j++)
-    {
-			if (j == 3 || j == 6)
-			printf(" ");
-			printf("|_____|");
-		}
-		if (i == 2 || i == 5)
-			printf("\n");
-	}
-printf("\n");
-}
-
+// imprime sudoku do usuário
 void printSudoku2()
 {
   int i, j;
-  //system("clear");
+  printf("\033[39m");
+  system("clear");
 
 	for (i = 0; i< 9; i++)
   {
 		//printf("\n");
-		for (j = 0; j < 9; j++){
+		for (j = 0; j < 9; j++)
+    {
 			if (j == 3 || j == 6)
 				printf(" ");
 			if (i == 0 || i == 3 || i == 6)
@@ -284,6 +307,7 @@ void verificaSudoku()
     printf("Acertou Miserave\n");
   else
     printf("Errou Miserave\n");
+  system("read b");
 }
 
 // funcao para solucionar o sudoku
