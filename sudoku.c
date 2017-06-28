@@ -4,12 +4,14 @@ int main()
 {
 
   int x = 0, y = 0;
-  geraMatriz();
-  geraMatrizUsuario();
-  printSudoku();
-  soluSudoku(x, y);
-  jogarSudoku();
-  //printSudoku();
+  while (TRUE)
+  {
+    menu();
+    geraMatrizUsuario();
+    printSudoku2();
+    soluSudoku(x, y);
+    jogarSudoku();
+  }
 
   return 0;
 
