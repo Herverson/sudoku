@@ -44,7 +44,7 @@ void menu()
               geraMatriz(3);
               break;
         case 4:
-              geraMatriz(4);
+              rankMelhores();
               break;
         case 5:
               system("clear");
@@ -53,16 +53,110 @@ void menu()
         default:
               menu();
       }
-
-  //} while(num != 5);
 }
 
+void rankMelhores()
+{
+  FILE *fp;
+  int i, n = 0;//, vetor[6];
+  char nome[50];
+  int tempo, horas, horas_seg, minutos, segundos;
+
+  fp = fopen("top5.txt","rt");
+  if(fp == NULL)
+  {
+    fp = fopen("top5.txt","w");
+    return;
+  }
+  else
+  {
+    int vetor[6] = {0,0,0,0,0,0};
+    i = 0;
+    while (fscanf(fp, "%s %d\n", nome, &vetor[i]) != EOF)
+    {
+      //printf("%s - %d\n", nome, vetor[i]);
+      horas_seg = 3600;//horas em segundos
+      horas = (vetor[i]/horas_seg); //resultado da hora
+      minutos = (vetor[i] -(horas_seg*horas))/60;
+      vetor[i] = (vetor[i] -(horas_seg*horas)-(minutos*60));
+
+      printf("%s - %dh : %dm : %ds \n", nome, horas, minutos, vetor[i]);
+    }
+    system("read b");
+    menu();
+  }
+}
+
+// função para o ranking do sudoku
+void top5(char *nomev,int s)
+{
+  Rank r[6];
+  r[0].segundos = 0;
+  r[1].segundos = 0;
+  r[2].segundos = 0;
+  r[3].segundos = 0;
+  r[4].segundos = 0;
+  r[5].segundos = 0;
+  FILE *fp;
+  int i, j, aux = 0, n=0;
+  char auxnome[50];
+  // abrir arquivo
+  fp = fopen("top5.txt","rt");
+  if(fp == NULL)
+  {
+    fp = fopen("top5.txt","w");
+    fprintf(fp, "%s %d\n", nomev, s);
+    return;
+  }
+  else
+  {
+    i = 0;
+    while (fscanf(fp, "%s %d\n", r[i].nome, &r[i].segundos) != EOF)
+    {
+      i++;
+    }
+  }
+    strcpy(r[i].nome , nomev);
+    r[i].segundos = s;
+    n = i + 1;
+
+    // ordenar o TOP5
+    for (i = 0; i < n; i++)
+    {
+      for (j = i + 1; j < n; j++)
+      {
+        if (r[i].segundos > r[j].segundos)
+        {
+            aux = r[j].segundos;
+            strcpy(auxnome, r[j].nome);
+
+            r[j].segundos = r[i].segundos;
+            strcpy(r[j].nome, r[i].nome);
+
+            r[i].segundos = aux;
+            strcpy(r[i].nome, auxnome);
+        }
+      }
+    }
+    // modo escrita
+    fp = fopen("top5.txt","w");
+    //printf("n = %d",n);
+    for (i = 0; i < 5; i++)
+    {
+        if (r[i].segundos != 0)
+            fprintf(fp, "%s %d\n", r[i].nome, r[i].segundos);
+    }
+  fclose(fp);
+}
 // funcao para iniciar o jogo
 void jogarSudoku()
 {
   int n = 0, n2 = 0, num = 1, i, j, cont = 0, k = 0, op;
+  char nome[20];
+  int tempo, horas, horas_seg, minutos, segundos;
   int p1[81], p2[81];
   int total = 0;
+  time_t tinicio, tfim;
   // célula do sudoku
   for (i = 0; i < 9; i++)
   {
@@ -76,6 +170,12 @@ void jogarSudoku()
       }
     }
   }
+  puts("Informe seu nome");
+  scanf("%s", nome);
+
+  printSudoku2();
+  tinicio = time(NULL);
+
   // loop para receber as coordenadas
   while (TRUE)
   {
@@ -162,7 +262,28 @@ void jogarSudoku()
           //system("read b");
           break;
       case 3:
-          verificaSudoku();
+          tfim = time(NULL);
+          if (verificaSudoku())
+          {
+              printf("Acertou Miserave\n");
+              tempo = difftime(tfim, tinicio);
+
+              top5(nome, tempo);
+
+              horas_seg = 3600;//horas em segundos
+              horas = (tempo/horas_seg); //resultado da hora
+              minutos = (tempo -(horas_seg*horas))/60;
+              segundos = (tempo -(horas_seg*horas)-(minutos*60));
+
+              printf("Seu tempo de solução %dh : %dm :%ds \n",horas,minutos,segundos);
+              system("read b");
+          }
+          else
+          {
+              printf("Errou Miserave\n");
+              printf("Digite enter para continuar\n");
+              system("read b");
+          }
           break;
       case 4:
           break;
@@ -311,7 +432,7 @@ void printSudoku2()
 printf("\n");
 }
 
-void verificaSudoku()
+int verificaSudoku()
 {
   int acertouMiserave = TRUE;
   int i, j;
@@ -322,10 +443,10 @@ void verificaSudoku()
         acertouMiserave = FALSE;
 
   if (acertouMiserave)
-    printf("Acertou Miserave\n");
+    return TRUE;
   else
-    printf("Errou Miserave\n");
-  system("read b");
+    return FALSE;
+  //system("read b");
 }
 
 // funcao para solucionar o sudoku
