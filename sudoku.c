@@ -8,7 +8,6 @@ int main()
   {
     menu();
     geraMatrizUsuario();
-    printSudoku2();
     soluSudoku(x, y);
     jogarSudoku();
   }
