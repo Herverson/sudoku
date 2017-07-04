@@ -60,9 +60,10 @@ void menu()
 // funcao para iniciar o jogo
 void jogarSudoku()
 {
-  int n = 0, n2 = 0, num = 1, i, j, cont = 0, k = 0;
+  int n = 0, n2 = 0, num = 1, i, j, cont = 0, k = 0, op;
   int p1[81], p2[81];
   int total = 0;
+  // célula do sudoku
   for (i = 0; i < 9; i++)
   {
     for (j = 0; j < 9; j++)
@@ -74,64 +75,111 @@ void jogarSudoku()
         k++;
       }
     }
-
   }
   // loop para receber as coordenadas
   while (TRUE)
   {
-    printf("Informe as coordenadas\n");
-    scanf("%d", &n);
-    scanf("%d", &n2);
-    // saber se ja existe na posição incial
-    if (n >= 1  && n <= 9 && n2 >= 1 && n2 <= 9)
+    puts("");
+    puts("【M】【E】【N】【U】");
+    puts("");
+    puts(" 1 -【Fazer uma jogada】");
+    puts(" 2 -【Apagar uma jogada】");
+    puts(" 3 -【Verificar resposta】");
+    puts(" 4 -【Desistir】");
+    scanf("%d", &op);
+    switch (op)
     {
-      cont = 0;
-      for (i = 0; i < k ; i++)
-      {
-        if (n-1 == p1[i] && n2-1 == p2[i])
-          cont = 1;
-      }
+      case 1:
+          printf("Informe as coordenadas\n");
+          scanf("%d", &n);
+          scanf("%d", &n2);
+          // saber se ja existe na posição incial
+          if (n >= 1  && n <= 9 && n2 >= 1 && n2 <= 9)
+          {
+            cont = 0;
+            for (i = 0; i < k ; i++)
+            {
+              if (n-1 == p1[i] && n2-1 == p2[i])
+                cont = 1;
+            }
 
-      // caso não esteja
-      if (cont != 1)
-      {
-        printf("Informe o número\n");
-        scanf("%d", &num);
-        if (num >= 1 && num <=9)
-          sudoku2[n-1][n2-1] = num;
-        else
-          printf("Número inválido\n");
-      }
-      else
-      {
-        printf("Célula do Sudoku\n");
-        system("read b");
-      }
+            // caso não esteja
+            if (cont != 1)
+            {
+              printf("Informe o número\n");
+              scanf("%d", &num);
+              if (num >= 1 && num <=9)
+                sudoku2[n-1][n2-1] = num;
+              else
+                printf("Número inválido\n");
+            }
+            else
+            {
+              printf("Célula do Sudoku\n");
+              system("read b");
+            }
 
+          }
+          else
+          {
+            printf("Coordenada inválida\n");
+          }
+          printSudoku2();
+          //system("read b");
+          break;
+
+      case 2:
+          printf("Informe as coordenadas\n");
+          scanf("%d", &n);
+          scanf("%d", &n2);
+          // saber se ja existe na posição incial
+          if (n >= 1  && n <= 9 && n2 >= 1 && n2 <= 9)
+          {
+            cont = 0;
+            for (i = 0; i < k ; i++)
+            {
+              if (n-1 == p1[i] && n2-1 == p2[i])
+                cont = 1;
+            }
+
+            // caso não esteja
+            if (cont != 1)
+            {
+                sudoku2[n-1][n2-1] = 0;
+            }
+            else
+            {
+              printf("Célula do Sudoku\n");
+              system("read b");
+            }
+
+          }
+          else
+          {
+            printf("Coordenada inválida\n");
+          }
+          printSudoku2();
+          //system("read b");
+          break;
+      case 3:
+          verificaSudoku();
+          break;
+      case 4:
+          break;
+      default:
+          printf("número inválido\n");
+          break;
     }
-    else if (n == 0 && n2 == 0)
-    {
+    if (op == 4 || op == 3)
         break;
-    }
-    else
-    {
-      printf("Coordenada inválida\n");
-    }
-
-    // chama a funcao para imprimir a matriz alterada ou não
-    printSudoku2();
   }
-  if (n == 0 && n2 == 0);
-  {
-    verificaSudoku();
-  }
-
 }
 // preenche o sudoku do arquivo sudoku.txt
 void geraMatriz(int n)
 {
 
-  int c, c1, x, k = 0, i, j;
+  int c1, x, k = 0, i, j;
+  char c;
   int vetor[81];
   FILE *fp;
   switch (n)
@@ -173,39 +221,7 @@ void geraMatriz(int n)
     {
       do
       {
-          switch (c)
-          {
-            case 48:
-                  vetor[i] = 0;
-            break;
-            case 49:
-                  vetor[i] = 1;
-            break;
-            case 50:
-                  vetor[i] = 2;
-            break;
-            case 51:
-                  vetor[i] = 3;
-            break;
-            case 52:
-                  vetor[i] = 4;
-            break;
-            case 53:
-                  vetor[i] = 5;
-            break;
-            case 54:
-                  vetor[i] = 6;
-            break;
-            case 55:
-                  vetor[i] = 7;
-            break;
-            case 56:
-                  vetor[i] = 8;
-            break;
-            case 57:
-                  vetor[i] = 9;
-            break;
-          }
+        vetor[i] = c - '0';
         i++;
         c = fgetc(fp);
       }while (c != '\n');
@@ -277,8 +293,10 @@ void printSudoku2()
 				printf(" ");
 			if (sudoku2[i][j] == 0)
 				printf("|     |");
-			else
-				printf("|  %i  |",sudoku2[i][j]);
+			else if (sudoku[i][j] == sudoku2[i][j])
+				printf("|  \033[32m%i\033[0m  |",sudoku2[i][j]);
+      else
+        printf("|  \033[31m%i\033[0m  |", sudoku2[i][j]);
 		}
 		printf("\n");
 		for (j = 0; j< 9; j++)
