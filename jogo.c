@@ -587,56 +587,55 @@ void geraMatrizUsuario()
 // imprime sudoku do usuário
 void printSudoku2()
 {
-int i, j;
-printf("\033[39m");
-system("clear");
+  int i, j;
+  printf("\033[39m");
+  system("clear");
 
-for (i = 0; i< 9; i++)
-{
-//printf("\n");
-for (j = 0; j < 9; j++)
-{
-if (j == 3 || j == 6)
-printf(" ");
-if (i == 0 || i == 3 || i == 6)
-{
-if (j == 0)
-	printf(" _____  ");
-else
-	printf("_____  ");
-}
-}
-printf("\n");
-for (j = 0; j < 9; j++)
-{
-if (j == 3 || j == 6)
-printf(" ");
-printf("|     |");
-}
-printf("\n");
-for (j = 0; j < 9; j++)
-{
-if (j == 3 || j == 6)
-printf(" ");
-if (sudoku2[i][j] == 0)
-printf("|     |");
-else if (modofacil && sudoku[i][j] == sudoku2[i][j])
-printf("|  \033[32m%i\033[0m  |",sudoku2[i][j]);
-else if (modofacil)
-printf("|  \033[31m%i\033[0m  |", sudoku2[i][j]);
-else
-printf("|  %i  |", sudoku2[i][j]);
-}
-printf("\n");
-for (j = 0; j< 9; j++)
-{
-if (j == 3 || j == 6)
-printf(" ");
-printf("|_____|");
-}
-if (i == 2 || i == 5)
-printf("\n");
-}
+  for (i = 0; i< 9; i++)
+  {
+    for (j = 0; j < 9; j++)
+    {
+      if (j == 3 || j == 6)
+        printf(" ");
+      if (i == 0 || i == 3 || i == 6)
+      {
+        if (j == 0)
+	         printf(" _____  ");
+        else
+	         printf("_____  ");
+      }
+    }
+    printf("\n");
+    for (j = 0; j < 9; j++)
+    {
+        if (j == 3 || j == 6)
+            printf(" ");
+            printf("|     |");
+    }
+    printf("\n");
+    for (j = 0; j < 9; j++)
+    {
+        if (j == 3 || j == 6)
+            printf(" ");
+        if (sudoku2[i][j] == 0)
+            printf("|     |");
+        else if (modofacil && sudoku[i][j] == sudoku2[i][j])
+            printf("|  \033[32m%i\033[0m  |",sudoku2[i][j]);
+        else if (modofacil)
+            printf("|  \033[31m%i\033[0m  |", sudoku2[i][j]);
+        else
+            printf("|  %i  |", sudoku2[i][j]);
+    }
+    printf("\n");
+    for (j = 0; j< 9; j++)
+    {
+        if (j == 3 || j == 6)
+          printf(" ");
+          printf("|_____|");
+    }
+    if (i == 2 || i == 5)
+        printf("\n");
+  }
 printf("\n");
 }
 
