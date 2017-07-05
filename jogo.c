@@ -3,11 +3,12 @@
 int sudoku[9][9];
 int sudoku2[9][9];
 int modofacil = FALSE;
+int nivel = 0;
 // funcao menu
 
 void menu()
 {
-  int num;
+      int num;
   //do
   //{
       system("clear");
@@ -29,7 +30,7 @@ void menu()
       puts("");
       puts("\t\t\t\t    1 -【Fácil】");
       puts("\t\t\t\t    2 -【Médio】");
-      puts("\t\t\t\t    3 -【Dificil】");
+      puts("\t\t\t\t    3 -【Difícil】");
       puts("\t\t\t\t    4 -【Extras】");
       puts("\t\t\t\t    5 -【Sair】");
       scanf("%d", &num);
@@ -38,14 +39,20 @@ void menu()
         case 1:
               geraMatriz(1);
               modofacil = TRUE;
+              nivel = 1;
+              adicionaQuant(1);
               break;
         case 2:
               geraMatriz(2);
               modofacil = FALSE;
+              nivel = 2;
+              adicionaQuant(2);
               break;
         case 3:
               geraMatriz(3);
               modofacil = FALSE;
+              nivel = 3;
+              adicionaQuant(3);
               break;
         case 4:
               rankMelhores();
@@ -59,17 +66,17 @@ void menu()
       }
 }
 
-void rankMelhores()
+void imprimeRank(char *arquivo)
 {
-  FILE *fp;
   int i, n = 0;//, vetor[6];
   char nome[50];
   int tempo, horas, horas_seg, minutos, segundos;
 
-  fp = fopen("top5.txt","rt");
+  FILE *fp;
+  fp = fopen(arquivo, "rt");
   if(fp == NULL)
   {
-    fp = fopen("top5.txt","w");
+    fp = fopen(arquivo, "w");
     return;
   }
   else
@@ -87,8 +94,162 @@ void rankMelhores()
       printf("%s - %dh : %dm : %ds \n", nome, horas, minutos, vetor[i]);
     }
     system("read b");
-    menu();
   }
+
+}
+
+// função adiciona mais um em cada nível desejado
+void adicionaQuant(int n)
+{
+  int num;
+  FILE *fp;
+  switch (n)
+  {
+    case 1:
+          fp = fopen("totalfacil.txt", "rt");
+          break;
+    case 2:
+          fp = fopen("totalmedio.txt", "rt");
+          break;
+    case 3:
+          fp = fopen("totaldificil.txt", "rt");
+          break;
+    default:
+          break;
+  }
+  fscanf(fp, "%d\n", &num);
+  num++;
+  // modo escrita
+  switch (n)
+  {
+    case 1:
+          fp = fopen("totalfacil.txt", "w");
+          break;
+    case 2:
+          fp = fopen("totalmedio.txt", "w");
+          break;
+    case 3:
+          fp = fopen("totaldificil.txt", "w");
+          break;
+    default:
+          break;
+  }
+  fprintf(fp, "%d\n", num);
+  fclose(fp);
+}
+
+// função para imprimir o rank e total de jogadas em cada nível
+void rankMelhores()
+{
+
+  FILE *fp;
+  int i, n = 0, oprincipal, op, num;//, vetor[6];
+  char nome[50], narquivo[20];
+
+  while (TRUE)
+  {
+        system("clear");
+        puts("");
+        puts("【M】【E】【N】【U】");
+        puts("");
+        puts(" 1 -【Total de partidas jogadas】");
+        puts(" 2 -【Ranking】");
+        puts(" 3 -【Voltar ao MENU】");
+        //puts(" 4 -【Voltar ao MENU】");
+        scanf("%d", &oprincipal);
+        switch (oprincipal)
+        {
+          case 1:
+                system("clear");
+                puts(" 1 -【Total de partidas jogadas no nível Fácil】");
+                puts(" 2 -【Total de partidas jogadas no nível Médio】");
+                puts(" 3 -【Total de partidas jogadas no nível Difícil】");
+                //puts(" 4 -【Voltar ao MENU】");
+                scanf("%d", &op);
+
+                switch (op)
+                {
+                  case 1:
+                        fp = fopen("totalfacil.txt","rt");
+                        if(fp == NULL)
+                          return;
+                        else
+                        {
+                          fscanf(fp, "%d\n", &num);
+                          printf("Números de partidas jogadas %d\n", num);
+                        }
+                        system("read b");
+                        break;
+                  case 2:
+                        fp = fopen("totalmedio.txt","rt");
+                        if(fp == NULL)
+                          return;
+                        else
+                        {
+                            fscanf(fp, "%d\n", &num);
+                            printf("Números de partidas jogadas %d\n", num);
+                        }
+                        system("read b");
+                        break;
+                  case 3:
+                        fp = fopen("totaldificil.txt","rt");
+                        if(fp == NULL)
+                          return;
+                        else
+                        {
+                            fscanf(fp, "%d\n", &num);
+                            printf("Números de partidas jogadas %d\n", num);
+                        }
+                        system("read b");
+                        break;
+                  case 4:
+                        break;
+                  default:
+                        printf("Número inválido\n");
+                        system("read b");
+                        break;
+                }
+                system("read b");
+                break;
+          case 2:
+                system("clear");
+                puts(" 1 -【Rank nível Fácil】");
+                puts(" 2 -【Rank nível Médio】");
+                puts(" 3 -【Rank nível Difícil】");
+                //puts(" 4 -【Voltar ao MENU】");
+                scanf("%d", &op);
+                switch (op)
+                {
+                  case 1:
+                        strcpy(narquivo,"vencefacil.txt");
+                        imprimeRank(narquivo);
+                        break;
+                  case 2:
+                        strcpy(narquivo,"vencemedio.txt");
+                        imprimeRank(narquivo);
+                        break;
+                  case 3:
+                        strcpy(narquivo,"vencedificil.txt");
+                        imprimeRank(narquivo);
+                        break;
+                  case 4:
+                        break;
+                  default:
+                        printf("Número inválido\n");
+                        break;
+                  }
+                system("read b");
+                break;
+          case 3:
+                break;
+          default:
+                printf("Número inválido\n");
+                break;
+          }
+          if (op == 4 || oprincipal == 3)
+              break;
+    }
+  menu();
 }
 
 // função para o ranking do sudoku
@@ -105,11 +266,39 @@ void top5(char *nomev,int s)
   int i, j, aux = 0, n=0;
   char auxnome[50];
   // abrir arquivo
-  fp = fopen("top5.txt","rt");
+  switch (nivel)
+  {
+    case 1:
+          fp = fopen("vencefacil.txt","rt");
+          if(fp == NULL)
+          {
+            fp = fopen("vencefacil.txt","w");
+            fprintf(fp, "%s %d\n", nomev, s);
+            return;
+          }
+          break;
+    case 2:
+          fp = fopen("vencemedio.txt","rt");
+          if(fp == NULL)
+          {
+            fp = fopen("vencemedio.txt","w");
+            fprintf(fp, "%s %d\n", nomev, s);
+            return;
+          }
+          break;
+    case 3:
+          fp = fopen("vencedificil.txt","rt");
+          if(fp == NULL)
+          {
+            fp = fopen("vencedificil.txt","w");
+            fprintf(fp, "%s %d\n", nomev, s);
+            return;
+          }
+          break;
+  }
+
   if(fp == NULL)
   {
-    fp = fopen("top5.txt","w");
-    fprintf(fp, "%s %d\n", nomev, s);
     return;
   }
   else
@@ -143,7 +332,18 @@ void top5(char *nomev,int s)
       }
     }
     // modo escrita
-    fp = fopen("top5.txt","w");
+    switch (nivel)
+    {
+      case 1:
+            fp = fopen("vencefacil.txt","w");
+            break;
+      case 2:
+            fp = fopen("vencemedio.txt","w");
+            break;
+      case 3:
+            fp = fopen("vencedificil.txt","w");
+            break;
+    }
     //printf("n = %d",n);
     for (i = 0; i < 5; i++)
     {
@@ -269,7 +469,7 @@ void jogarSudoku()
           tfim = time(NULL);
           if (verificaSudoku())
           {
-              printf("Acertou Miserave\n");
+              printf("Acertou\n");
               tempo = difftime(tfim, tinicio);
 
               top5(nome, tempo);
@@ -284,7 +484,9 @@ void jogarSudoku()
           }
           else
           {
-              printf("Errou Miserave\n");
+              printf("Errou\n");
+              /*tempo = 100;
+              top5(nome, tempo);*/
               printf("Digite enter para continuar\n");
               system("read b");
           }
@@ -303,7 +505,7 @@ void jogarSudoku()
 void geraMatriz(int n)
 {
 
-  int c1, x, k = 0, i, j;
+  int l, x, k = 0, i, j;
   char c;
   int vetor[81];
   FILE *fp;
@@ -339,10 +541,10 @@ void geraMatriz(int n)
   x = 0;//(rand()%50);
   //printf("%d\n", x);
   i = 0;
-  c1 = 0;
+  l = 0;
   while ((c = fgetc(fp)) != EOF)
   {
-    if (c1 == x)
+    if (l == x)
     {
       do
       {
@@ -353,7 +555,7 @@ void geraMatriz(int n)
 
     }
     if (c == '\n')
-        c1++;
+        l++;
     if (i == 81)
         break;
 
@@ -385,56 +587,56 @@ void geraMatrizUsuario()
 // imprime sudoku do usuário
 void printSudoku2()
 {
-  int i, j;
-  printf("\033[39m");
-  system("clear");
+int i, j;
+printf("\033[39m");
+system("clear");
 
-	for (i = 0; i< 9; i++)
-  {
-		//printf("\n");
-		for (j = 0; j < 9; j++)
-    {
-			if (j == 3 || j == 6)
-				printf(" ");
-			if (i == 0 || i == 3 || i == 6)
-      {
-				if (j == 0)
-					printf(" _____  ");
-				else
-					printf("_____  ");
-			}
-		}
-		printf("\n");
-		for (j = 0; j < 9; j++)
-    {
-			if (j == 3 || j == 6)
-				printf(" ");
-			printf("|     |");
-		}
-		printf("\n");
-    for (j = 0; j < 9; j++)
-    {
-			if (j == 3 || j == 6)
-				printf(" ");
-			if (sudoku2[i][j] == 0)
-				printf("|     |");
-			else if (modofacil && sudoku[i][j] == sudoku2[i][j])
-				printf("|  \033[32m%i\033[0m  |",sudoku2[i][j]);
-      else if (modofacil)
-        printf("|  \033[31m%i\033[0m  |", sudoku2[i][j]);
-      else
-        printf("|  %i  |", sudoku2[i][j]);
-		}
-		printf("\n");
-		for (j = 0; j< 9; j++)
-    {
-			if (j == 3 || j == 6)
-			printf(" ");
-			printf("|_____|");
-		}
-		if (i == 2 || i == 5)
-			printf("\n");
-	}
+for (i = 0; i< 9; i++)
+{
+//printf("\n");
+for (j = 0; j < 9; j++)
+{
+if (j == 3 || j == 6)
+printf(" ");
+if (i == 0 || i == 3 || i == 6)
+{
+if (j == 0)
+	printf(" _____  ");
+else
+	printf("_____  ");
+}
+}
+printf("\n");
+for (j = 0; j < 9; j++)
+{
+if (j == 3 || j == 6)
+printf(" ");
+printf("|     |");
+}
+printf("\n");
+for (j = 0; j < 9; j++)
+{
+if (j == 3 || j == 6)
+printf(" ");
+if (sudoku2[i][j] == 0)
+printf("|     |");
+else if (modofacil && sudoku[i][j] == sudoku2[i][j])
+printf("|  \033[32m%i\033[0m  |",sudoku2[i][j]);
+else if (modofacil)
+printf("|  \033[31m%i\033[0m  |", sudoku2[i][j]);
+else
+printf("|  %i  |", sudoku2[i][j]);
+}
+printf("\n");
+for (j = 0; j< 9; j++)
+{
+if (j == 3 || j == 6)
+printf(" ");
+printf("|_____|");
+}
+if (i == 2 || i == 5)
+printf("\n");
+}
 printf("\n");
 }
 
