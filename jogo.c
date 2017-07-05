@@ -4,8 +4,8 @@ int sudoku[9][9];
 int sudoku2[9][9];
 int modofacil = FALSE;
 int nivel = 0;
-// funcao menu
 
+// funcao menu
 void menu()
 {
       int num;
@@ -66,9 +66,10 @@ void menu()
       }
 }
 
+// função para imprimir os nomes e segundos formatado
 void imprimeRank(char *arquivo)
 {
-  int i, n = 0;//, vetor[6];
+  int i, n = 0;
   char nome[50];
   int tempo, horas, horas_seg, minutos, segundos;
 
@@ -85,7 +86,7 @@ void imprimeRank(char *arquivo)
     i = 0;
     while (fscanf(fp, "%s %d\n", nome, &vetor[i]) != EOF)
     {
-      //printf("%s - %d\n", nome, vetor[i]);
+
       horas_seg = 3600;//horas em segundos
       horas = (vetor[i]/horas_seg); //resultado da hora
       minutos = (vetor[i] -(horas_seg*horas))/60;
@@ -103,6 +104,7 @@ void adicionaQuant(int n)
 {
   int num;
   FILE *fp;
+  // abre o arquivo para imcrementar
   switch (n)
   {
     case 1:
@@ -145,7 +147,7 @@ void rankMelhores()
   FILE *fp;
   int i, n = 0, oprincipal, op, num;//, vetor[6];
   char nome[50], narquivo[20];
-
+  //  loop para repetição do MENU
   while (TRUE)
   {
         system("clear");
@@ -157,6 +159,7 @@ void rankMelhores()
         puts(" 3 -【Voltar ao MENU】");
         //puts(" 4 -【Voltar ao MENU】");
         scanf("%d", &oprincipal);
+        // escolha principal
         switch (oprincipal)
         {
           case 1:
@@ -256,6 +259,7 @@ void rankMelhores()
 void top5(char *nomev,int s)
 {
   Rank r[6];
+  // inicializa os segundos
   r[0].segundos = 0;
   r[1].segundos = 0;
   r[2].segundos = 0;
@@ -377,7 +381,7 @@ void jogarSudoku()
   puts("Informe seu nome");
   scanf("%s", nome);
 
-  printSudoku2();
+  printSudoku();
   tinicio = time(NULL);
 
   // loop para receber as coordenadas
@@ -400,15 +404,15 @@ void jogarSudoku()
           // saber se ja existe na posição incial
           if (n >= 1  && n <= 9 && n2 >= 1 && n2 <= 9)
           {
-            cont = 0;
+            cont = FALSE;
             for (i = 0; i < k ; i++)
             {
               if (n-1 == p1[i] && n2-1 == p2[i])
-                cont = 1;
+                cont = TRUE;
             }
 
             // caso não esteja
-            if (cont != 1)
+            if (!cont)
             {
               printf("Informe o número\n");
               scanf("%d", &num);
@@ -428,7 +432,7 @@ void jogarSudoku()
           {
             printf("Coordenada inválida\n");
           }
-          printSudoku2();
+          printSudoku();
           //system("read b");
           break;
 
@@ -462,7 +466,7 @@ void jogarSudoku()
           {
             printf("Coordenada inválida\n");
           }
-          printSudoku2();
+          printSudoku();
           //system("read b");
           break;
       case 3:
@@ -585,7 +589,7 @@ void geraMatrizUsuario()
   }
 }
 // imprime sudoku do usuário
-void printSudoku2()
+void printSudoku()
 {
   int i, j;
   printf("\033[39m");
