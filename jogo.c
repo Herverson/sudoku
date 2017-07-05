@@ -595,7 +595,7 @@ void printSudoku()
   printf("\033[39m");
   system("clear");
 
-  for (i = 0; i< 9; i++)
+  for (i = 0; i < 9; i++)
   {
     for (j = 0; j < 9; j++)
     {
