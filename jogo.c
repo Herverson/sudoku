@@ -541,8 +541,8 @@ void geraMatriz(int n)
           break;
   }
 
-  //srand( (unsigned)time(NULL) );
-  x = 0;//(rand()%50);
+  srand( (unsigned)time(NULL) );
+  x = (rand()%3);
   //printf("%d\n", x);
   i = 0;
   l = 0;
@@ -564,7 +564,7 @@ void geraMatriz(int n)
         break;
 
 
-}
+  }
   fclose(fp);
   // passa os valores do arquivo para a matriz
   for (i = 0; i < 9; i++)
@@ -597,6 +597,23 @@ void printSudoku()
 
   for (i = 0; i < 9; i++)
   {
+    // imprime as coordenadas da coluna
+    if (i == 0)
+    {
+      for (j = 0; j < 9; j++)
+      {
+
+          printf("\033[36m");
+          if (j == 3 || j == 6)
+           printf("    %i   ", j + 1);
+          else
+           printf("   %i   ", j + 1);
+          if (j == 8)
+           printf("\n");
+          printf("\033[0m");
+      }
+    }
+    // imprime o topo
     for (j = 0; j < 9; j++)
     {
       if (j == 3 || j == 6)
@@ -610,6 +627,7 @@ void printSudoku()
       }
     }
     printf("\n");
+    // imprime as separações
     for (j = 0; j < 9; j++)
     {
         if (j == 3 || j == 6)
@@ -617,6 +635,7 @@ void printSudoku()
             printf("|     |");
     }
     printf("\n");
+    // imprime as células
     for (j = 0; j < 9; j++)
     {
         if (j == 3 || j == 6)
@@ -629,9 +648,16 @@ void printSudoku()
             printf("|  \033[31m%i\033[0m  |", sudoku2[i][j]);
         else
             printf("|  %i  |", sudoku2[i][j]);
+        printf("\033[36m");
+        // imprime as coordenadas das linhas
+        if (j == 8)
+            printf(" %d",i + 1);
+        printf("\033[0m");
+
     }
     printf("\n");
-    for (j = 0; j< 9; j++)
+    // imprime o rodape
+    for (j = 0; j < 9; j++)
     {
         if (j == 3 || j == 6)
           printf(" ");
@@ -640,9 +666,9 @@ void printSudoku()
     if (i == 2 || i == 5)
         printf("\n");
   }
-printf("\n");
+  printf("\n");
 }
-
+// verifica se o sudoku está correto e retorna verdadeiro ou falso
 int verificaSudoku()
 {
   int acertouMiserave = TRUE;
