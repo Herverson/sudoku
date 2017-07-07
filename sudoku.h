@@ -12,17 +12,15 @@ struct rank
 };
 typedef struct rank Rank;
 
-int soluSudoku(int, int);
 void menu();
+void ET();
 void adicionaQuant(int);
 void geraMatriz(int);
 void printSudoku();
+void printSudoku2();
+void printSudoku3();
 void jogarSudoku();
-void geraMatrizUsuario();
 void rankMelhores();
 void imprimeRank(char *);
 void top5(char *, int);
 int verificaSudoku();
-int mesmaColuna(int, int, int);
-int mesmaLinha(int, int, int);
-int mesmoQuadrado(int, int, int);
