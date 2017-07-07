@@ -855,6 +855,20 @@ void ET()
   system("mpg123 et.mp3 &");
   while(cont != 4)
   {
+    system("clear");
+    switch (cont)
+    {
+      case 1:
+            puts("Solução nível Fácil");
+            break;
+      case 2:
+            puts("Solução nível Médio");
+            break;
+      case 3:
+            puts("Solução nível Difícil");
+      break;
+    }
+    system("read b");
 
     switch (cont)
     {
@@ -897,23 +911,10 @@ void ET()
       }
       printSudoku2();
       printf("\n");
-      switch (cont)
-      {
-        case 1:
-              puts("Solução Fácil");
-              break;
-        case 2:
-              puts("Solução Médio");
-              break;
-        case 3:
-              puts("Solução Difícil");
-              break;
-      }
       printSudoku3();
       printf("\n");
     }
     cont++;
-
   }
   puts("Enter para voltar");
   system("read b");
