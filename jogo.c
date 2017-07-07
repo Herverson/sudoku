@@ -13,26 +13,28 @@ void menu()
   //{
       system("clear");
       printf("\033[34m");
-      puts("\t\t\t\t┏━━━┳┓╋┏┳━━━┳━━━┳┓┏━┳┓╋┏┓");
-      puts("\t\t\t\t┃┏━┓┃┃╋┃┣┓┏┓┃┏━┓┃┃┃┏┫┃╋┃┃");
-      puts("\t\t\t\t┃┗━━┫┃╋┃┃┃┃┃┃┃╋┃┃┗┛┛┃┃╋┃┃");
-      puts("\t\t\t\t┗━━┓┃┃╋┃┃┃┃┃┃┃╋┃┃┏┓┃┃┃╋┃┃");
-      puts("\t\t\t\t┃┗━┛┃┗━┛┣┛┗┛┃┗━┛┃┃┃┗┫┗━┛┃");
-      puts("\t\t\t\t┗━━━┻━━━┻━━━┻━━━┻┛┗━┻━━━┛");
+      puts("\t\t┏━━━┳┓╋┏┳━━━┳━━━┳┓┏━┳┓╋┏┓");
+      puts("\t\t┃┏━┓┃┃╋┃┣┓┏┓┃┏━┓┃┃┃┏┫┃╋┃┃");
+      puts("\t\t┃┗━━┫┃╋┃┃┃┃┃┃┃╋┃┃┗┛┛┃┃╋┃┃");
+      puts("\t\t┗━━┓┃┃╋┃┃┃┃┃┃┃╋┃┃┏┓┃┃┃╋┃┃");
+      puts("\t\t┃┗━┛┃┗━┛┣┛┗┛┃┗━┛┃┃┃┗┫┗━┛┃");
+      puts("\t\t┗━━━┻━━━┻━━━┻━━━┻┛┗━┻━━━┛");
       printf("\n");
-      puts("\t\t\t  ╭━━╮╭━━━┳━╮╭━╮╱╭╮╱╱╭┳━━┳━╮╱╭┳━━━┳━━━╮");
-      puts("\t\t\t  ┃╭╮┃┃╭━━┫┃╰╯┃┃╱┃╰╮╭╯┣┫┣┫┃╰╮┃┣╮╭╮┃╭━╮┃");
-      puts("\t\t\t  ┃╰╯╰┫╰━━┫╭╮╭╮┃╱╰╮┃┃╭╯┃┃┃╭╮╰╯┃┃┃┃┃┃╱┃┃");
-      puts("\t\t\t  ┃╭━╮┃╭━━┫┃┃┃┃┣━━┫╰╯┃╱┃┃┃┃╰╮┃┃┃┃┃┃┃╱┃┃");
-      puts("\t\t\t  ┃╰━╯┃╰━━┫┃┃┃┃┣━━┻╮╭╯╭┫┣┫┃╱┃┃┣╯╰╯┃╰━╯┃");
-      puts("\t\t\t  ╰━━━┻━━━┻╯╰╯╰╯╱╱╱╰╯╱╰━━┻╯╱╰━┻━━━┻━━━╯");
-      puts("\t\t\t\t  【M】【E】【N】【U】");
+      puts("\t  ╭━━╮╭━━━┳━╮╭━╮╱╭╮╱╱╭┳━━┳━╮╱╭┳━━━┳━━━╮");
+      puts("\t  ┃╭╮┃┃╭━━┫┃╰╯┃┃╱┃╰╮╭╯┣┫┣┫┃╰╮┃┣╮╭╮┃╭━╮┃");
+      puts("\t  ┃╰╯╰┫╰━━┫╭╮╭╮┃╱╰╮┃┃╭╯┃┃┃╭╮╰╯┃┃┃┃┃┃╱┃┃");
+      puts("\t  ┃╭━╮┃╭━━┫┃┃┃┃┣━━┫╰╯┃╱┃┃┃┃╰╮┃┃┃┃┃┃┃╱┃┃");
+      puts("\t  ┃╰━╯┃╰━━┫┃┃┃┃┣━━┻╮╭╯╭┫┣┫┃╱┃┃┣╯╰╯┃╰━╯┃");
+      puts("\t  ╰━━━┻━━━┻╯╰╯╰╯╱╱╱╰╯╱╰━━┻╯╱╰━┻━━━┻━━━╯");
       puts("");
-      puts("\t\t\t\t    1 -【Fácil】");
-      puts("\t\t\t\t    2 -【Médio】");
-      puts("\t\t\t\t    3 -【Difícil】");
-      puts("\t\t\t\t    4 -【Extras】");
-      puts("\t\t\t\t    5 -【Sair】");
+      puts("\t\t  【M】【E】【N】【U】");
+      puts("");
+      puts("\t\t     1 -【Fácil】");
+      puts("\t\t     2 -【Médio】");
+      puts("\t\t     3 -【Difícil】");
+      puts("\t\t     4 -【Nível ET】");
+      puts("\t\t     5 -【Extras】");
+      puts("\t\t     6 -【Sair】");
       scanf("%d", &num);
       switch (num)
       {
@@ -55,9 +57,16 @@ void menu()
               adicionaQuant(3);
               break;
         case 4:
-              rankMelhores();
+              geraMatriz(4);
+              modofacil = FALSE;
+              nivel = 4;
+              adicionaQuant(4);
+              //ET();
               break;
         case 5:
+              rankMelhores();
+              break;
+        case 6:
               system("clear");
               exit(1);
               break;
@@ -116,6 +125,9 @@ void adicionaQuant(int n)
     case 3:
           fp = fopen("totaldificil.txt", "rt");
           break;
+    case 4:
+          fp = fopen("totalET.txt", "rt");
+          break;
     default:
           break;
   }
@@ -132,6 +144,9 @@ void adicionaQuant(int n)
           break;
     case 3:
           fp = fopen("totaldificil.txt", "w");
+          break;
+    case 4:
+          fp = fopen("totalET.txt", "w");
           break;
     default:
           break;
@@ -167,6 +182,7 @@ void rankMelhores()
                 puts(" 1 -【Total de partidas jogadas no nível Fácil】");
                 puts(" 2 -【Total de partidas jogadas no nível Médio】");
                 puts(" 3 -【Total de partidas jogadas no nível Difícil】");
+                puts(" 4 -【Total de partidas jogadas no nível ET】");
                 //puts(" 4 -【Voltar ao MENU】");
                 scanf("%d", &op);
 
@@ -206,7 +222,18 @@ void rankMelhores()
                         system("read b");
                         break;
                   case 4:
+                        fp = fopen("totalET.txt","rt");
+                        if(fp == NULL)
+                          return;
+                        else
+                        {
+                            fscanf(fp, "%d\n", &num);
+                            printf("Números de partidas jogadas %d\n", num);
+                        }
+                        system("read b");
                         break;
+                  //case 4:
+                    //    break;
                   default:
                         printf("Número inválido\n");
                         system("read b");
@@ -219,6 +246,7 @@ void rankMelhores()
                 puts(" 1 -【Rank nível Fácil】");
                 puts(" 2 -【Rank nível Médio】");
                 puts(" 3 -【Rank nível Difícil】");
+                puts(" 4 -【Rank nível ET】");
                 //puts(" 4 -【Voltar ao MENU】");
                 scanf("%d", &op);
                 switch (op)
@@ -236,6 +264,8 @@ void rankMelhores()
                         imprimeRank(narquivo);
                         break;
                   case 4:
+                        strcpy(narquivo,"venceET.txt");
+                        imprimeRank(narquivo);
                         break;
                   default:
                         printf("Número inválido\n");
@@ -299,6 +329,15 @@ void top5(char *nomev,int s)
             return;
           }
           break;
+    case 4:
+          fp = fopen("venceET.txt","rt");
+          if(fp == NULL)
+          {
+            fp = fopen("venceET.txt","w");
+            fprintf(fp, "%s %d\n", nomev, s);
+            return;
+          }
+          break;
   }
 
   if(fp == NULL)
@@ -346,6 +385,9 @@ void top5(char *nomev,int s)
             break;
       case 3:
             fp = fopen("vencedificil.txt","w");
+            break;
+      case 4:
+            fp = fopen("venceET.txt","w");
             break;
     }
     //printf("n = %d",n);
@@ -485,6 +527,8 @@ void jogarSudoku()
 
               printf("Seu tempo de solução %dh : %dm :%ds \n",horas,minutos,segundos);
               system("read b");
+              if (nivel == 4)
+                  ET();
           }
           else
           {
@@ -511,7 +555,7 @@ void geraMatriz(int n)
 
   int l, x, k = 0, i, j;
   char c;
-  int vetor[81];
+  int vetor[81], vetor2[81];
   FILE *fp;
   switch (n)
   {
@@ -539,10 +583,18 @@ void geraMatriz(int n)
             return;
           }
           break;
+    case 4:
+          fp = fopen("ET.txt","r");
+          if(fp == NULL)
+          {
+            printf("Não foi possivel abrir arquivo\n");
+            return;
+          }
+          break;
   }
 
   srand( (unsigned)time(NULL) );
-  x = (rand()%3);
+  x = (rand()%20);
   //printf("%d\n", x);
   i = 0;
   l = 0;
@@ -555,39 +607,34 @@ void geraMatriz(int n)
         vetor[i] = c - '0';
         i++;
         c = fgetc(fp);
-      }while (c != '\n');
+      }while (c != ',');
+      i = 0;
+      while ((c = fgetc(fp)) != '\n')
+      {
+        vetor2[i] = c - '0';
+        i++;
+      }
 
     }
     if (c == '\n')
         l++;
     if (i == 81)
         break;
-
-
   }
+
   fclose(fp);
   // passa os valores do arquivo para a matriz
   for (i = 0; i < 9; i++)
   {
     for (j = 0; j < 9; j++)
     {
-      sudoku[i][j] = vetor[k];
+      sudoku2[i][j] = vetor[k];
+      sudoku[i][j] = vetor2[k];
       k++;
     }
   }
 }
-// funcao para preencher a matriz do usuario
-void geraMatrizUsuario()
-{
-  int i, j;
-  for (i = 0; i < 9; i++)
-  {
-    for (j = 0; j < 9; j++)
-    {
-      sudoku2[i][j] = sudoku[i][j];
-    }
-  }
-}
+
 // imprime sudoku do usuário
 void printSudoku()
 {
@@ -648,8 +695,8 @@ void printSudoku()
             printf("|  \033[31m%i\033[0m  |", sudoku2[i][j]);
         else
             printf("|  %i  |", sudoku2[i][j]);
-        printf("\033[36m");
         // imprime as coordenadas das linhas
+        printf("\033[36m");
         if (j == 8)
             printf(" %d",i + 1);
         printf("\033[0m");
@@ -668,6 +715,118 @@ void printSudoku()
   }
   printf("\n");
 }
+// imprime o sudoku não resolvido
+void printSudoku2()
+{
+  int i, j;
+  //printf("\033[39m");
+  system("clear");
+//  if (n == 1)
+  printf("\033[33m");
+  for (i = 0; i< 9; i++)
+  {
+    //printf("\n");
+    for (j = 0; j < 9; j++)
+    {
+      if (j == 3 || j == 6)
+        printf(" ");
+      if (i == 0 || i == 3 || i == 6)
+      {
+        if (j == 0)
+	       printf(" _____  ");
+        else
+	       printf("_____  ");
+       }
+     }
+     printf("\n");
+     for (j = 0; j < 9; j++)
+     {
+        if (j == 3 || j == 6)
+          printf(" ");
+        printf("|     |");
+      }
+      printf("\n");
+      for (j = 0; j < 9; j++)
+      {
+        if (j == 3 || j == 6)
+          printf(" ");
+        if (sudoku2[i][j] == 0)
+          printf("|     |");
+        else
+          printf("|  %i  |",sudoku2[i][j]);
+      }
+      printf("\n");
+      for (j = 0; j< 9; j++)
+      {
+          if (j == 3 || j == 6)
+            printf(" ");
+          printf("|_____|");
+      }
+      if (i == 2 || i == 5)
+        printf("\n");
+  }
+  printf("\n");
+  system ("read b");
+  printf("\033[0m");
+}
+
+// imprime o sudoku resolvido
+void printSudoku3()
+{
+  int i, j;
+  //printf("\033[39m");
+  system("clear");
+//  if (n == 1)
+  printf("\033[34m");
+  printf("\033[1m");
+  for (i = 0; i< 9; i++)
+  {
+    //printf("\n");
+    for (j = 0; j < 9; j++)
+    {
+      if (j == 3 || j == 6)
+        printf(" ");
+      if (i == 0 || i == 3 || i == 6)
+      {
+        if (j == 0)
+	       printf(" _____  ");
+        else
+	       printf("_____  ");
+       }
+     }
+     printf("\n");
+     for (j = 0; j < 9; j++)
+     {
+        if (j == 3 || j == 6)
+          printf(" ");
+        printf("|     |");
+      }
+      printf("\n");
+      for (j = 0; j < 9; j++)
+      {
+        if (j == 3 || j == 6)
+          printf(" ");
+        if (sudoku[i][j] == 0)
+          printf("|     |");
+        else
+          printf("|  %i  |",sudoku[i][j]);
+      }
+      printf("\n");
+      for (j = 0; j< 9; j++)
+      {
+          if (j == 3 || j == 6)
+            printf(" ");
+          printf("|_____|");
+      }
+      if (i == 2 || i == 5)
+        printf("\n");
+  }
+  printf("\n");
+  system ("read b");
+  printf("\033[0m");
+}
+
+
 // verifica se o sudoku está correto e retorna verdadeiro ou falso
 int verificaSudoku()
 {
@@ -685,143 +844,79 @@ int verificaSudoku()
     return FALSE;
   //system("read b");
 }
+void ET()
+{
+  int l, x, k = 0, i, j, cont;
+  char c;
+  int vetor[81], vetor2[81];
+  FILE *fp;
+  cont = 1;
+  i = 0;
+  system("mpg123 et.mp3 &");
+  while(cont != 4)
+  {
 
-// funcao para solucionar o sudoku
-int soluSudoku(int x, int y)
-{
-  int num = 1;
-  int auxx = 0, auxy = 0;
-  // caso a celula preenchida
-  if (sudoku[x][y] != 0 )
-  {
-    if (x == 8 && y == 8)
+    switch (cont)
     {
-      return 1;
+      case 1:
+            fp = fopen("facil.txt","rt");
+            break;
+      case 2:
+            fp = fopen("medio.txt","rt");
+            break;
+      case 3:
+            fp = fopen("dificil.txt","rt");
+            break;
     }
-    // caso a linha tenha terminado
-    if (x < 8)
+    while ((c = fgetc(fp)) != EOF)
     {
-      //incrementa para proxima linha
-      x++;
-    }
-    // caso contrario
-    else
-    {
-      // linha recebe 0
-      x = 0;
-      // incrementa coluna
-      y++;
-    }
-    if (soluSudoku(x, y))
-    {
-      return 1;
-    }
-    else
-    {
-      return 0;
-    }
-  }
-  // caso a celula esteja vazia
-  if (sudoku[x][y] == 0)
-  {
-    // preenche a celula com um numero entre 1 ate 9
-    while (num < 10)
-    {
-    // não pode estar na mesma linha, mesma coluna e no mesmo quadrado
-      if (!mesmoQuadrado(x, y, num) && !mesmaLinha(x, y, num) && !mesmaColuna(x, y, num))
+      i = 0;
+      do
       {
-        sudoku[x][y] = num;
-        if (x == 8 && y == 8)
+        vetor[i] = c - '0';
+        i++;
+        c = fgetc(fp);
+      }while (c != ',');
+      i = 0;
+      while ((c = fgetc(fp)) != '\n')
+      {
+        vetor2[i] = c - '0';
+        i++;
+      }
+
+      // passa os valores do arquivo para a matriz
+      k = 0;
+      for (i = 0; i < 9; i++)
+      {
+        for (j = 0; j < 9; j++)
         {
-          return 1;
-        }
-        // caso a linha não tenha terminado
-        if (x < 8)
-        {
-          //incrementa para proxima linha
-          auxx = x + 1;
-        }
-        // caso contrario
-        else
-        {
-          // auxiliar da linha recebe 0
-          auxx = 0;
-          // auxiliar da coluna rebece o incremento da coluna
-          auxy = y + 1;
-        }
-        if (soluSudoku(auxx, auxy))
-        {
-          return 1;
+          sudoku2[i][j] = vetor[k];
+          sudoku[i][j] = vetor2[k];
+          k++;
         }
       }
-      num++;
-    }
-    sudoku[x][y] = 0;
-    return 0;
-  }
-}
-// funcao para saber se o numero está na mesma coluna
-int mesmaColuna(int x, int y, int num)
-{
-  for (int i = 0; i < 9; i++)
-  {
-    if (sudoku[x][i] == num)
-    {
-      return 1;
-    }
-  }
-  return 0;
-}
-// funcao para saber se o numero está na mesma linha
-int mesmaLinha(int x, int y, int num)
-{
-  for (int i = 0; i < 9; i++)
-  {
-    if (sudoku[i][y] == num)
-    {
-      return 1;
-    }
-  }
-  return 0;
-}
-// funcao para saber se o numero está no mesmo quadrado
-int mesmoQuadrado(int x, int y, int num)
-{
-  // condicao da posição do numero no quadrado
-  if (x < 3)
-  {
-    x = 0;
-  }
-  else if (x < 6)
-  {
-    x = 3;
-  }
-  else
-  {
-    x = 6;
-  }
-  // condicao da posição do numero no quadrado
-  if (y < 3)
-  {
-    y = 0;
-  }
-  else if (y < 6)
-  {
-    y = 3;
-  }
-  else
-  {
-    y = 6;
-  }
-  for (int i = x; i < x + 3; i++)
-  {
-    for (int j = y; j < y + 3; j++)
-    {
-      if (sudoku[i][j] == num)
+      printSudoku2();
+      printf("\n");
+      switch (cont)
       {
-        return 1;
+        case 1:
+              puts("Solução Fácil");
+              break;
+        case 2:
+              puts("Solução Médio");
+              break;
+        case 3:
+              puts("Solução Difícil");
+              break;
       }
+      printSudoku3();
+      printf("\n");
     }
+    cont++;
+
   }
-  return 0;
+  puts("Enter para voltar");
+  system("read b");
+  system("killall mpg123");
+  menu();
 }
