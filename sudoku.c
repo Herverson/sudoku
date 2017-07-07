@@ -7,8 +7,6 @@ int main()
   while (TRUE)
   {
     menu();
-    geraMatrizUsuario();
-    soluSudoku(x, y);
     jogarSudoku();
   }
 
