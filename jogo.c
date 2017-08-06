@@ -727,9 +727,7 @@ void printSudoku()
 void printSudoku2()
 {
   int i, j;
-  //printf("\033[39m");
   system("clear");
-//  if (n == 1)
   printf("\033[33m");
   for (i = 0; i< 9; i++)
   {
@@ -784,12 +782,10 @@ void printSudoku3()
   int i, j;
   //printf("\033[39m");
   system("clear");
-//  if (n == 1)
   printf("\033[34m");
   printf("\033[1m");
   for (i = 0; i< 9; i++)
   {
-    //printf("\n");
     for (j = 0; j < 9; j++)
     {
       if (j == 3 || j == 6)
@@ -848,9 +844,9 @@ int verificaSudoku()
 
   if (acertouMiserave)
     return TRUE;
-  else
-    return FALSE;
-  //system("read b");
+
+  return FALSE;
+
 }
 void ET()
 {
